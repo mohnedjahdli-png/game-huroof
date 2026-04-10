@@ -1,0 +1,386 @@
+/* Global Styles and CSS Variables */
+:root {
+    --primary-color: #2b3a4a;
+    --secondary-color: #f4f7f6;
+    --accent-color: #3f72af;
+    --green-team: #43A047; /* Fallback Default */
+    --orange-team: #FB8C00; /* Fallback Default */
+    --hex-border: #111; /* Very dark blue/black for borders exactly like pic */
+    
+    --difficulty-easy: #28a745;
+    --difficulty-medium: #ffc107;
+    --difficulty-hard: #dc3545;
+    
+    /* Hexagon perfect math based on FLAT-TOPPED hexagons (points on left/right) */
+    /* Width is from point to point (Long Diagonal = W) */
+    /* Height is flat to flat (Short Diagonal = H) */
+    /* H = W * sqrt(3)/2 = W * 0.866025... */
+    
+    --hex-width: 120px;
+    --hex-height: 103.923px;
+    
+    /* In a flat-topped grid, rows stack with a distance of H. */
+    /* BUT columns are spaced W * 0.75 apart horizontally. */
+    /* And alternating rows are staggered vertically by exactly H/2. */
+    
+    --hex-border-thickness: 4px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+}
+
+body {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    direction: rtl;
+    overflow-x: hidden;
+}
+
+.hidden { display: none !important; }
+.mt-10 { margin-top: 10px; }
+.mt-20 { margin-top: 20px; }
+.text-center { text-align: center; }
+
+/* General UI Components */
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.game-icon {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+}
+
+.game-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.game-title span { color: var(--accent-color); }
+
+.modern-input, .modern-select {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.primary-btn, .secondary-btn, .action-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+.primary-btn {
+    background-color: var(--accent-color);
+    color: white;
+}
+.primary-btn:hover { background-color: #305f96; }
+
+.secondary-btn {
+    background: #e0e0e0;
+    color: #333;
+}
+.secondary-btn:hover { background: #ccc; }
+
+
+/* Setup View specific */
+.setup-container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    margin-top: 30px;
+}
+
+.setup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.team-setup-card {
+    padding: 20px;
+    border: 4px solid #eee;
+    border-radius: 15px;
+    transition: border-color 0.3s;
+}
+
+.color-picker {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.color-swatch {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: transform 0.2s;
+}
+
+.color-swatch:hover { transform: scale(1.1); }
+.color-swatch.selected { border-color: #333; transform: scale(1.1); box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+
+
+/* DISPLAY SCREEN SPECIFIC */
+.display-mode {
+    background: #111; /* Dark behind everything just in case */
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.display-header {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    background: white;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    z-index: 10;
+    position: relative;
+}
+
+.center-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.2rem;
+    color: #2b3a4a;
+}
+
+.flying-bee {
+    font-size: 2.5rem;
+    color: #f1c40f;
+    animation: flying-bee 3s ease-in-out infinite alternate;
+}
+
+@keyframes flying-bee {
+    0% { transform: translateY(0) rotate(-5deg); }
+    100% { transform: translateY(-10px) rotate(5deg); }
+}
+
+.team-banner {
+    padding: 10px 30px;
+    border-radius: 30px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    box-shadow: inset 0 -3px 10px rgba(0,0,0,0.2);
+}
+
+.display-board {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 4 Triangles for the background (like the picture) */
+.board-background {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+
+
+
+/* REVERTING TO POINTY TOPPED WITH PERFECT PRECISION */
+:root {
+    --hex-width: 130px; /* Made slightly bigger based on user image */
+    --hex-height: 150.11px; /* 130 / (sqrt(3)/2) -> 130 / 0.866025 */
+}
+
+.game-board-container {
+    position: relative;
+    z-index: 10;
+}
+
+.hex-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hex-row {
+    display: flex;
+    justify-content: center;
+    /* Vertical overlap: the bounding box is height 115.47px.
+       The top point is at 0, the top-right corner is at 25% (28.86px).
+       The rectangular part is 50% of the height (57.73px).
+       To make them interlock, the row below needs to move UP by 25% of the height. 
+       So margin-top: -28.86px (which is -0.25 * height).
+    */
+    margin-top: calc(var(--hex-height) * -0.25); 
+}
+
+.hex-row:first-child { margin-top: 0; }
+
+/* Stagger odd rows */
+.hex-row:nth-child(even) {
+    /* Horizontal shift for interlocking: Exact half of the width */
+    transform: translateX(calc(var(--hex-width) * -0.5));
+}
+
+/* The Hexagon Base (Border Layer) */
+.hex-wrapper {
+    width: var(--hex-width);
+    height: var(--hex-height);
+    background-color: var(--hex-border);
+    /* Pointy topped polygon */
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    /* To ensure there are absolutely no horizontal gaps, keep margin 0 */
+    margin: 0; 
+    transition: transform 0.2s;
+}
+
+/* The Inner Hexagon (White or Team Color) */
+.hex-inner {
+    /* To create a perfectly overlapping thick black border:
+       If we want exactly 4px borders everywhere, we must scale the clip-path down.
+       Doing it via percentage width/height in a clip-path scales the angles slightly wrongly 
+       if the aspect ratio doesn't perfectly match the reduction.
+       Since aspect ratio is fixed, percentages are ok, but calc() is better. 
+       Let's use a 4px gap. */
+    width: calc(100% - 8px); 
+    height: calc(100% - 9.23px); /* 8 / 0.866 */
+    background-color: white;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+/* The Letter */
+.hex-letter {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--hex-border); /* Match reference, letter is dark */
+}
+
+/* Team States */
+.state-team-1 .hex-inner { background-color: var(--green-team); }
+.state-team-1 .hex-letter { color: white; }
+
+.state-team-2 .hex-inner { background-color: var(--orange-team); }
+.state-team-2 .hex-letter { color: white; }
+
+
+/* MODALS */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    border: 3px solid var(--accent-color);
+}
+
+.close-btn {
+    position: absolute; top: 15px; right: 15px;
+    background: none; border: none; font-size: 1.5rem; color: #666; cursor: pointer;
+}
+
+.diff-buttons { display: flex; gap: 15px; justify-content: center; }
+.diff-btn {
+    flex: 1; padding: 15px; color: white; border: none; border-radius: 10px; font-weight: bold; font-family: inherit; font-size: 1.2rem; cursor: pointer;
+}
+.diff-easy { background: var(--difficulty-easy); }
+.diff-medium { background: var(--difficulty-medium); }
+.diff-hard { background: var(--difficulty-hard); }
+
+.modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 2px dashed #eee; padding-bottom: 15px; margin-bottom: 20px;
+}
+
+.hex-letter-display {
+    width: 60px; height: 69px; background: var(--hex-border); color: white;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex; justify-content: center; align-items: center; font-size: 2rem; font-weight: 800;
+}
+
+.difficulty-badge {
+    padding: 8px 15px; border-radius: 20px; color: white; font-weight: bold;
+}
+
+.question-body h2 { font-size: 1.6rem; color: #111; line-height: 1.5; }
+
+.answer-box {
+    background: #f8f9fa; padding: 15px; border-radius: 10px; border-right: 5px solid var(--accent-color); text-align: right;
+}
+.answer-text { font-size: 1.4rem; font-weight: 800; color: #d35400; margin-top: 5px; }
+
+.modal-actions { display: flex; gap: 15px; }
+.award-green, .award-orange { flex: 1; padding: 15px; font-size: 1.1rem; }
+
+/* WINNER OVERLAY */
+.winner-overlay { background: rgba(0,0,0,0.95); }
+.winner-content { text-align: center; }
+.winner-title { font-size: 5rem; color: #ffd700; text-shadow: 0 0 20px rgba(255,215,0,0.5); margin-bottom: 20px; animation: bounce 1s infinite alternate; }
+.winner-team { font-size: 3rem; font-weight: 900; }
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-20px); }
+}

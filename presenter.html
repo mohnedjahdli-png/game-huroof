@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شاشة التحكم - حروف</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="presenter-mode">
+    
+    <div class="app-container">
+        <header class="game-header">
+            <div class="logo-area">
+                <i class="fa-solid fa-laptop-medical game-icon"></i>
+                <h1 class="game-title">لوحة التحكم <span>(المُقدم)</span></h1>
+            </div>
+            <div class="controls-area">
+                <button id="resetGameBtn" class="secondary-btn"><i class="fa-solid fa-rotate-left"></i> إعادة ضبط</button>
+            </div>
+        </header>
+
+        <!-- SETUP SCREEN -->
+        <main id="setupScreen" class="setup-container">
+            <h2>إعدادات اللعبة</h2>
+            
+            <div class="setup-grid">
+                <!-- Team 1 Setup -->
+                <div class="team-setup-card border-green">
+                    <h3>الفريق الأول (أعلى ↕ أسفل)</h3>
+                    <input type="text" id="t1Name" value="الفريق الأخضر" class="modern-input">
+                    <p class="mt-10">اختر لون الفريق:</p>
+                    <div class="color-picker" id="t1ColorPicker"></div>
+                </div>
+
+                <!-- Team 2 Setup -->
+                <div class="team-setup-card border-orange">
+                    <h3>الفريق الثاني (يمين ↔ يسار)</h3>
+                    <input type="text" id="t2Name" value="الفريق البرتقالي" class="modern-input">
+                    <p class="mt-10">اختر لون الفريق:</p>
+                    <div class="color-picker" id="t2ColorPicker"></div>
+                </div>
+            </div>
+
+            <div class="board-setup mt-20">
+                <label>حجم الشبكة:</label>
+                <select id="gridSizeSelect" class="modern-select">
+                    <option value="3">3x3</option>
+                    <option value="4">4x4</option>
+                    <option value="5" selected>5x5</option>
+                </select>
+                <button id="startGameBtn" class="primary-btn mt-10"><i class="fa-solid fa-play"></i> بدء اللعبة وعرض الشبكة</button>
+            </div>
+        </main>
+
+        <!-- GAME CONTROL SCREEN -->
+        <main id="gameScreen" class="game-board-container mt-20 hidden" style="background:none;box-shadow:none;">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 20px;">
+                <div class="team-banner" id="pTeam1Banner" style="font-size:1.2rem; min-width: 150px; text-align: center;">الفريق الأول</div>
+                <p style="color:red;font-weight:bold;align-self:center;text-align:center;">ملاحظة: اللوحة تعمل بالتزامن المباشر مع شاشة العرض</p>
+                <div class="team-banner" id="pTeam2Banner" style="font-size:1.2rem; min-width: 150px; text-align: center;">الفريق الثاني</div>
+            </div>
+            <div id="hexGrid" class="hex-grid">
+                <!-- Presenter board injected here -->
+            </div>
+        </main>
+    </div>
+
+
+
+    <!-- MAIN QUESTION MODAL (Presenter View + Answer) -->
+    <div id="questionModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="close-btn" id="closeQuestionBtn"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="modal-header">
+                <div class="hex-letter-display" id="modalLetterDisplay">أ</div>
+            </div>
+
+            <div class="question-body presenter-qb">
+                <h2 id="questionText">جاري تحميل السؤال...</h2>
+                <div class="answer-box mt-20">
+                    <h3>الإجابة:</h3>
+                    <p id="answerText" class="answer-text">---</p>
+                </div>
+            </div>
+
+            <div class="modal-actions mt-20">
+                <button class="action-btn award-green" id="awardT1Btn">
+                    <i class="fa-solid fa-check"></i> إجابة صحيحة (<span id="btnT1Name">فريق 1</span>)
+                </button>
+                <button class="action-btn award-orange" id="awardT2Btn">
+                    <i class="fa-solid fa-check"></i> إجابة صحيحة (<span id="btnT2Name">فريق 2</span>)
+                </button>
+            </div>
+            
+            <div class="modal-footer mt-10">
+                <button class="secondary-btn" id="refreshQuestionBtn">
+                    <i class="fa-solid fa-arrows-rotate"></i> تغيير السؤال (لم يجب أحد)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script src="questions.js"></script>
+    <script src="presenter.js"></script>
+</body>
+</html>

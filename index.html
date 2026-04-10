@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حروف مع مهند الجحدلي شخصياً</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .landing-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: var(--secondary-color);
+            text-align: center;
+        }
+        .landing-header {
+            margin-bottom: 50px;
+        }
+        .landing-logo {
+            font-size: 5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            animation: flying-bee 3s ease-in-out infinite alternate;
+        }
+        .landing-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+        .landing-title span { color: var(--accent-color); }
+        .choices {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .choice-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-decoration: none;
+            color: inherit;
+            width: 300px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+        }
+        .choice-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-color: var(--accent-color);
+        }
+        .choice-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        .choice-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-container">
+        <div class="landing-header">
+            <i class="fa-solid fa-bug landing-logo"></i>
+            <h1 class="landing-title">حروف مع <span>مهند الجحدلي</span> شخصياً</h1>
+            <p style="font-size: 1.2rem; margin-top: 10px; color: #666;">اختر الشاشة التي تريد الدخول إليها</p>
+        </div>
+        
+        <div class="choices">
+            <a href="display.html" class="choice-card" target="_blank">
+                <i class="fa-solid fa-tv choice-icon"></i>
+                <h2 class="choice-title">شاشة العرض (المتسابقين)</h2>
+                <p>الشاشة التي تظهر للمتسابقين والجمهور وتحتوي على الخلية فقط.</p>
+            </a>
+            
+            <a href="presenter.html" class="choice-card" target="_blank">
+                <i class="fa-solid fa-laptop-medical choice-icon"></i>
+                <h2 class="choice-title">شاشة تحكم المُقدم</h2>
+                <p>لوحة التحكم لاختيار الفرق، الألوان، وطرح الأسئلة.</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شاشة العرض - حروف</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&family=Tajawal:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body class="display-mode">
+    <!-- Team specific background triangles -->
+    <div class="board-background" id="boardBackground">
+        <svg width="100%" height="100%" preserveAspectRatio="none">
+            <polygon id="polyTop" fill="var(--green-team)" />
+            <polygon id="polyRight" fill="var(--orange-team)" />
+            <polygon id="polyBottom" fill="var(--green-team)" />
+            <polygon id="polyLeft" fill="var(--orange-team)" />
+        </svg>
+    </div>
+
+    <!-- Top floating header for Display -->
+    <div class="display-header">
+        <div class="team-banner team-1-banner">
+            <h2 id="team1NameDisplay">الفريق الأول</h2>
+        </div>
+        <div class="center-logo">
+            <i class="fa-solid fa-bug flying-bee"></i>
+            <h1>حروف مع مهند الجحدلي شخصياً</h1>
+        </div>
+        <div class="team-banner team-2-banner">
+            <h2 id="team2NameDisplay">الفريق الثاني</h2>
+        </div>
+    </div>
+
+    <!-- The actual board -->
+    <main class="game-board-container display-board">
+        <div id="hexGrid" class="hex-grid">
+            <!-- Rendered via JS -->
+        </div>
+    </main>
+
+    <!-- Fullscreen Winner Overlay -->
+    <div id="winnerModal" class="modal-overlay winner-overlay hidden">
+        <div class="winner-content">
+            <h1 class="winner-title">🎉 مبرووووك! 🎉</h1>
+            <h2 class="winner-team" id="winnerTeamName">الفريق يربح!</h2>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script src="display.js"></script>
+</body>
+</html>
