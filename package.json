@@ -1,0 +1,23 @@
+{
+  "name": "game-huroof",
+  "version": "1.0.0",
+  "main": "display.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohnedjahdli-png/game-huroof.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mohnedjahdli-png/game-huroof/issues"
+  },
+  "homepage": "https://github.com/mohnedjahdli-png/game-huroof#readme",
+  "description": "",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1"
+  }
+}

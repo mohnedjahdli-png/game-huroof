@@ -9,7 +9,6 @@ const questionModal = document.getElementById('questionModal');
 const closeModalBtn = document.getElementById('closeModalBtn');
 const questionText = document.getElementById('questionText');
 const modalLetterDisplay = document.getElementById('modalLetterDisplay');
-const difficultyBadge = document.getElementById('difficultyBadge');
 const refreshQuestionBtn = document.getElementById('refreshQuestionBtn');
 const awardGreenBtn = document.getElementById('awardGreenBtn');
 const awardOrangeBtn = document.getElementById('awardOrangeBtn');
@@ -101,14 +100,6 @@ function getUnaskedQuestion() {
 function loadNewQuestion() {
     const q = getUnaskedQuestion();
     questionText.textContent = q.text;
-    
-    difficultyBadge.textContent = q.difficulty;
-    difficultyBadge.className = 'difficulty-badge';
-    
-    // Set appropriate color class based on difficulty text
-    if (q.difficulty.includes("سهل")) difficultyBadge.classList.add('diff-easy');
-    else if (q.difficulty.includes("متوسط")) difficultyBadge.classList.add('diff-medium');
-    else difficultyBadge.classList.add('diff-hard');
 }
 
 // Modal Controls
