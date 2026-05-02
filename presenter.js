@@ -194,15 +194,36 @@ function getUnusedQuestion(targetLetter) {
     let state = getGameState();
     let used = state.usedQuestions || [];
     
+    // Helper function for Arabic letter matching
+    const normalizeArabicChar = (char) => {
+        if (!char) return '';
+        char = char.replace(/[\u064B-\u065F]/g, ''); // Remove diacritics
+        if (['أ', 'إ', 'آ', 'ا'].includes(char)) return 'ا';
+        if (char === 'هـ' || char === 'ة' || char === 'ه') return 'ه';
+        if (char === 'ى' || char === 'ي') return 'ي';
+        if (char === 'ؤ') return 'و';
+        if (char === 'ئ') return 'ي';
+        return char;
+    };
+    
+    const matchLetter = (answer, targetLetter) => {
+        if (!answer) return false;
+        let firstCharOfAnswer = answer.trim().charAt(0);
+        if (answer.trim().startsWith('ال') && answer.trim().length > 2) {
+            firstCharOfAnswer = answer.trim().charAt(2);
+        }
+        return normalizeArabicChar(firstCharOfAnswer) === normalizeArabicChar(targetLetter);
+    };
+
     // Attempt 1: Unused questions that have answer starting with the target letter
     let available = questionBank.map((q, i) => ({...q, ogIndex: i}))
-                                 .filter(q => !used.includes(q.ogIndex) && q.answer.trim().startsWith(targetLetter));
+                                 .filter(q => !used.includes(q.ogIndex) && matchLetter(q.answer, targetLetter));
 
     // Attempt 2: If we ran out, reset used questions for this letter
     if (available.length === 0) {
         // Find all indices of questions for this letter in the used list and remove them
         const letterQuestionIndices = questionBank.map((q, i) => ({...q, ogIndex: i}))
-                                                  .filter(q => q.answer.trim().startsWith(targetLetter))
+                                                  .filter(q => matchLetter(q.answer, targetLetter))
                                                   .map(q => q.ogIndex);
         
         state.usedQuestions = used.filter(idx => !letterQuestionIndices.includes(idx));
@@ -210,7 +231,7 @@ function getUnusedQuestion(targetLetter) {
         
         // Fetch again, if still zero it means the question bank has literally NO questions for this letter
         available = questionBank.map((q, i) => ({...q, ogIndex: i}))
-                                 .filter(q => q.answer.trim().startsWith(targetLetter));
+                                 .filter(q => matchLetter(q.answer, targetLetter));
                                  
         if (available.length === 0) {
             // Failsafe: just pick ANY random question

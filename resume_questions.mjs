@@ -16,7 +16,7 @@ try {
 const genAI = new GoogleGenerativeAI(API_KEY);
 // Switch to gemini-1.5-pro-latest for higher rate limits
 const model = genAI.getGenerativeModel({ 
-    model: "gemini-1.5-pro-latest", 
+    model: "gemini-2.5-flash", 
     generationConfig: {
         responseMimeType: "application/json",
         responseSchema: {
@@ -34,7 +34,7 @@ const model = genAI.getGenerativeModel({
     }
 });
 
-const REMAINING_LETTERS = ['ك', 'ل', 'م', 'ن', 'هـ', 'و', 'ي'];
+const REMAINING_LETTERS = ['ل', 'ن', 'هـ', 'و', 'ي'];
 
 // Read existing questions
 let existingQuestions = [];
