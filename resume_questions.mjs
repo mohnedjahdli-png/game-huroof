@@ -14,9 +14,9 @@ try {
 }
 
 const genAI = new GoogleGenerativeAI(API_KEY);
-// Switch to gemini-2.5-flash for higher rate limits
+// Switch to gemini-1.5-pro-latest for higher rate limits
 const model = genAI.getGenerativeModel({ 
-    model: "gemini-2.5-flash", 
+    model: "gemini-1.5-pro-latest", 
     generationConfig: {
         responseMimeType: "application/json",
         responseSchema: {
